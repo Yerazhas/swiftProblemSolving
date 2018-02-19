@@ -32,6 +32,38 @@ func parseExpression(_ expression: String) -> Int {
 
 parseExpression("943 12 3 + - 5 +")
 
+//infix evaluation
+
+extension Substring {
+    var string: String {
+        return String(self)
+    }
+}
+
+func parseExpressionInfix(_ expression: String) -> Int {
+    let tokens = expression.split(separator: " ")
+    var stack = [String]()
+    for token in tokens {
+        if let _ = ops[token.string] {
+            stack.append(token.string)
+        } else {
+            if(!stack.isEmpty) {
+                let operatorName = stack.removeLast()
+                let firstArgument = stack.removeLast()
+                let op = ops[operatorName]!
+                let result = op(Int(firstArgument)!, Int(token)!)
+                stack.append(String(result))
+            } else {
+                stack.append(token.string)
+            }
+        }
+    }
+    
+    return Int(stack.removeLast())!
+}
+
+parseExpressionInfix("1 + 2 - 4 * 5 + 100")
+
 //prefix evaluation
 
 func parseReversedExpression(_ expression: String) -> Int {

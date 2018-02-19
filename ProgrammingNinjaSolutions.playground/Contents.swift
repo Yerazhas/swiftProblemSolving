@@ -69,3 +69,23 @@ func factorial(_ number: Int) -> Int {
 
 factorial(3)
 
+//reverse string
+
+func reverse(_ inputString: String, outputString: String = "") -> String {
+    if inputString.isEmpty {
+        return outputString
+    } else {
+        let beforeIndex = inputString.index(inputString.endIndex, offsetBy: -1)
+        return reverse(String(inputString[..<beforeIndex]),
+                       outputString: outputString + String(inputString[beforeIndex...]))
+    }
+}
+
+reverse("stringToReverse", outputString: "")
+
+//* operation overload for char and int producing new string
+
+func *(lhs: Character, rhs: Int) -> String {
+    
+    return ""
+}
